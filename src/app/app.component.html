@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <app-user></app-user>
+    <app-user *ngFor="let user of users" [user]="user"></app-user>
   </div> 
 </div>
 
