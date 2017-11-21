@@ -5,21 +5,27 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UsersService{
 
+    size = 8;
+
     constructor(private http:Http){ }
 
     getUsers(){
-        return this.http.get('https://randomuser.me/api/?inc=gender,name,picture,location&results=10&nat=gb%27')
+        return this.http.get('https://randomuser.me/api/?inc=gender,name,picture,location&results=' + this.size +'&nat=gb')
         .map(response => response.json())
         .map(response => response.results)
         .map(users => {
             return users.map(u => {
-                return  {
+                return  { 
                     name: u.name.title + ' ' + u.name.first + ' ' + u.name.last,
                     image: u.picture.large,
                     geo:  u.location.city + '/' + u.location.state + '/' + u.location.street
                 }
             })
         })
+    }
+
+    setSize(size){
+        this.size = size;
     }
 
     users = [
